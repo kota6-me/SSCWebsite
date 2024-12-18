@@ -1,48 +1,28 @@
-# Astro Starter Kit: Basics
+# Website
 
-```sh
-npm create astro@latest -- --template basics
+成城科学部のウェブサイトです。
+
+## Directory
+
+このリポジトリの構造です。`[手動編集現金]`の記載がある場合は、**何があっても「ファイルの編集、追加、削除、移動、並びにフォルダの編集、追加、削除、移動」をしないでください。**
+
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+(root)
+│
+├── .astro >> Astroのビルド済みファイルなどが格納。[手動編集厳禁]
+├── node_modules >> npmでインストールしたパッケージなどのデータが格納。[手動編集厳禁]
+├── public >> サイト内各所で使うファイルを保存、ロゴ画像、ファビコン画像など。
+│   └── favicon.svg >> サイトファビコン。
+│
+├── src >> このサイトのメイン部分。基本的に編集するのはここ。
+│   ├── assets >> 今のとこ使ってない。各ページで読み込む画像ファイルなどの格納。
+│   ├── component >> 他のフレームワークで動かしたい、別ファイルに分けたい、そんなコードを分けておく場所。
+│   ├── layouts >> ウェブサイトの基幹レイアウトの設定に用いる。根本からデザインを変える時にいじるのはたぶんここ。
+│   └── pages >> 各ページを格納する場所。indexがトップページ。
+│
+├── .gitignore >> GitHubにアップロードしてはいけないものをここに記載する。変更前にPR出して、他の人のチェックを受けて。
+├── astro.config.mjs >> Astroの設定ファイル。拡張機能もここを編集して入れるけど、多くの場合はコマンドで何とかなる。
+├── package-lock.json >> マジでいじるな。ガチで。[手動編集厳禁]
+├── package.json >> ソースコードの設定ファイル。基本触らないに越したことはない。
+├── README.md >> 今見てるこのファイル。変更前にPR出して、他の人のチェックを受けて。
+└── tailwind.config.mjs >> TailwindCSSの設定ファイル。基本触らないに越したことはない。
