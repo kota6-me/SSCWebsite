@@ -1,6 +1,6 @@
 ---
 const code = Astro.url.searchParams.get("code");
-const reqRes = fetch("https://discordapp.com/api/oauth2/token", {
+fetch("https://discordapp.com/api/oauth2/token", {
   method: "POST",
   body: new URLSearchParams({
     client_id: "1319225068592824411",
@@ -9,9 +9,10 @@ const reqRes = fetch("https://discordapp.com/api/oauth2/token", {
     code: `${code}`,
     redirect_uri: "https://seijoscience.com/login/redirect",
   }),
+}).then((Response) => {
+  const auth = Response.json();
+  console.log(auth);
 });
-console.log(reqRes);
 ---
 
 <p>Redirecting...</p>
-<p>{reqRes}</p>
