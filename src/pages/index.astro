@@ -1,6 +1,12 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import Button from "../component/Button.svelte";
 ---
 
-<p>Hello, Astro!</p>
-<Button client:load />
+<Layout title="Top">
+  <p class="text-black font-urb font-bold text-5xl tracking-tight">
+    S²C Official Website
+  </p>
+  <Button client:load />
+  <code> let hoge = "fuga"; </code>
+</Layout>

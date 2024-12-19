@@ -1,7 +1,7 @@
-<button on:click={handleClick}>
+<button on:click={handleClick} class="font-urb">
   {num}
 </button>
-<button on:click={handleReset}>
+<button on:click={handleReset} class="font-urb">
   reset
 </button>
 
