@@ -1,6 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../component/Button.svelte";
+import { neon } from "@neondatabase/serverless";
+const sql = neon(
+  "postgresql://ssc-web_owner:7mELo8GIJHZF@ep-wispy-lab-a1bm7nos.ap-southeast-1.aws.neon.tech/ssc-web?sslmode=require"
+);
+const response = await sql`SELECT * FROM testdb ORDER BY id ASC`;
+const data = response[0].version;
+console.log(response);
 ---
 
 <Layout title="Top">
@@ -13,4 +20,11 @@ import Button from "../component/Button.svelte";
   </p>
   <Button client:load />
   <code> let hoge = "fuga"; </code>
+  <div>
+    NEON:
+    <br />ID:{response[0].id}
+    <br />ITEM:{response[0].data_name}
+    <br />PRICE:¥{response[0].price_yen}.
+  </div>
+  <a href="/entry/">Signup</a>
 </Layout>
