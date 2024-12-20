@@ -10,8 +10,8 @@ fetch("https://discordapp.com/api/oauth2/token", {
     redirect_uri: "https://seijoscience.com/login/redirect",
   }),
 }).then((Response) => {
-  const auth = Response.json();
-  console.log(auth);
+  const auth = Response.text();
+  console.info("[INFO]:" + auth);
 });
 ---
 
