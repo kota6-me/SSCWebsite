@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const params = Astro.url.searchParams;
+const url = Astro.request.url;
+const params = new URL(url).searchParams;
 const code = params.get("code");
 ---
 
