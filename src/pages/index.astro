@@ -2,9 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Button from "../component/Button.svelte";
 import { neon } from "@neondatabase/serverless";
-const sql = neon(
-  "postgresql://ssc-web_owner:7mELo8GIJHZF@ep-wispy-lab-a1bm7nos.ap-southeast-1.aws.neon.tech/ssc-web?sslmode=require"
-);
+const sql = neon(process.env.DATABASE_URL || "");
 const response = await sql`SELECT * FROM testdb ORDER BY id ASC`;
 const data = response[0].version;
 console.log(response);
