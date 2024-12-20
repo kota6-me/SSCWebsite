@@ -1,14 +1,12 @@
----
-import Layout from "../../layouts/Layout.astro";
+<script>
 const url = Astro.request.url;
 const params = new URL(url).searchParams;
-const code = params.get("code");
----
+const code = params.get("code") || "No code";
+</script>
 
-<Layout title="Redirect">
-  <p class="text-center">Redirecting...</p>
-  <p class="text-center">Your code is {code}</p>
-</Layout>
+
+<p class="text-center">Redirecting...</p>
+<p class="text-center">Your code is {code}</p>
 <!--
 
 <p>This is your data.</p>
