@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-
-const code = Astro.url.searchParams.get("code");
+const params = Astro.url.searchParams;
+const code = params.get("code");
 ---
 
 <Layout title="Redirect">
