@@ -10,8 +10,15 @@ fetch("https://discordapp.com/api/oauth2/token", {
     redirect_uri: "https://seijoscience.com/login/redirect",
   }),
 }).then((Response) => {
-  const auth = Response.text();
-  console.log("[INFO]:" + auth);
+  const jsonPromise = Response.json();
+  jsonPromise.then((data) => {
+    console.log(data);
+    fetch("https://discordapp.com/api/users/@me", {
+      headers: {
+        Authorization: `Bearer ${data[0].access_token}`,
+      },
+    });
+  });
 });
 ---
 
