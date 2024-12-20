@@ -11,7 +11,7 @@ fetch("https://discordapp.com/api/oauth2/token", {
   }),
 }).then((Response) => {
   const auth = Response.text();
-  console.info("[INFO]:" + auth);
+  console.log("[INFO]:" + auth);
 });
 ---
 
