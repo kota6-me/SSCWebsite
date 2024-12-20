@@ -17,6 +17,11 @@ fetch("https://discordapp.com/api/oauth2/token", {
       headers: {
         Authorization: `Bearer ${data[0].access_token}`,
       },
+    }).then((Response) => {
+      const jsonPromise = Response.json();
+      jsonPromise.then((data) => {
+        console.log(data[0].id);
+      });
     });
   });
 });
