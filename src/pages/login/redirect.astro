@@ -4,14 +4,14 @@ fetch("https://discordapp.com/api/oauth2/token", {
   method: "POST",
   body: new URLSearchParams({
     client_id: "1319225068592824411",
-    client_secret: "4aTulOoL6WcEuUFr0k52cGDBWgRj2R3z",
+    client_secret: process.env.DISCORD_CLIENT_SECRET || "",
     grant_type: "authorization_code",
     code: `${code}`,
     redirect_uri: "https://seijoscience.com/login/redirect",
   }),
 }).then((Response) => {
-  const auth = Response.json();
-  console.log(auth);
+  const auth = Response.text();
+  console.info("[INFO]:" + auth);
 });
 ---
 
