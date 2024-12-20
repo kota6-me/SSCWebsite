@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import LoginModal from "../component/Login.svelte";
+import Redirect from "./login/redirect.svelte";
 ---
 
 <Layout title="Entry">
-  <LoginModal client:load />
+  <h1>Login</h1>
+  <LoginModal />
+  <Redirect client:load />
   <p>aaa</p>
 </Layout>
