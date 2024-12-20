@@ -1,4 +1,4 @@
-<button on:click={handleClick} class="font-urb">
+<button on:click={handleClick} class="font-jbm">
   {num}
 </button>
 <button on:click={handleReset} class="font-urb">
