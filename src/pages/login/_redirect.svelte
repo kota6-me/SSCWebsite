@@ -1,4 +1,5 @@
 <script>
+import { Astro } from "@astrojs/runtime";
 const url = Astro.request.url;
 const params = new URL(url).searchParams;
 const code = params.get("code") || "No code";
