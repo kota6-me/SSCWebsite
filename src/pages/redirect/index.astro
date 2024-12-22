@@ -1,0 +1,47 @@
+---
+import {
+  grantDiscordAccessToken,
+  getDiscordUserData,
+} from "../../utils/discordLogin";
+import type { typeGrantAccess, typeUserData } from "../../utils/discordLogin";
+let grantAccess: typeGrantAccess, userData: typeUserData;
+
+try {
+  grantAccess = grantDiscordAccessToken(Astro.url);
+} catch (e) {
+  return {
+    statusCode: 401,
+    statusTitle: "Error during granting access token",
+    statusMessage: e.message,
+  };
+}
+
+try {
+  userData = getDiscordUserData(grantAccess.access_token || "");
+} catch (e) {
+  return {
+    statusCode: 498,
+    statusTitle: "Error during fetching user data",
+    statusMessage: e.message,
+  };
+}
+---
+
+<h1>Your data</h1>
+<ul>
+  <li>Username:{userData.global_name}</li>
+  <li>UserID:{userData.username}</li>
+  <li>SnnowflakeID:{userData.id}</li>
+  <li>
+    Avatar:<img
+      src={"https://cdn.discordapp.com/" + userData.id + "/" + userData.avatar}
+      alt="avatar"
+    />
+  </li>
+  <li>
+    Banner:<img
+      src={"https://cdn.discordapp.com/" + userData.id + "/" + userData.banner}
+      alt="banner"
+    />
+  </li>
+</ul>

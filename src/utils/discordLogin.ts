@@ -1,3 +1,6 @@
+const myURL = new URL(
+  "https://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash"
+);
 let grantAccess: typeGrantAccess = {};
 interface typeGrantAccess {
   access_token?: String;
@@ -15,7 +18,16 @@ interface typeUserData {
   id?: String;
   username?: String;
 }
-const grantDiscordAccessToken = function (code: String): typeGrantAccess {
+const grantDiscordAccessToken = function (url: URL): typeGrantAccess {
+  let code = "";
+  const params = new URL(url).search;
+  let paramsPrefix = new RegExp(/^[?&]$/g);
+  const paramsArr = params.split(paramsPrefix);
+  for (let i = 0; i < paramsArr.length; i++) {
+    if (paramsArr[i].includes("code")) {
+      code = paramsArr[i].split("=")[1];
+    }
+  }
   fetch("https://discordapp.com/api/oauth2/token", {
     method: "POST",
     body: new URLSearchParams({
@@ -30,7 +42,7 @@ const grantDiscordAccessToken = function (code: String): typeGrantAccess {
       grantAccess = response;
     });
   });
-  return grantAccess;
+  return grantAccess as typeGrantAccess;
 };
 
 const getDiscordUserData = function (token: String): typeUserData {
@@ -43,7 +55,7 @@ const getDiscordUserData = function (token: String): typeUserData {
       userData = response;
     });
   });
-  return userData;
+  return userData as typeUserData;
 };
 
 export { grantDiscordAccessToken, getDiscordUserData };
