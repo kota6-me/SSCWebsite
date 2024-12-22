@@ -35,7 +35,7 @@ const grantDiscordAccessToken = function (url: URL): typeGrantAccess {
       client_secret: process.env.DISCORD_CLIENT_SECRET || "",
       grant_type: "authorization_code",
       code: `${code}`,
-      redirect_uri: "https://seijoscience.com/login",
+      redirect_uri: "https://seijoscience.com/redirect",
     }),
   }).then((response) => {
     response.json().then((response) => {
