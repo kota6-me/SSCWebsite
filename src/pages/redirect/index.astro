@@ -4,10 +4,9 @@ import {
   getDiscordUserData,
 } from "../../utils/discordLogin";
 import type { typeGrantAccess, typeUserData } from "../../utils/discordLogin";
-let grantAccess: typeGrantAccess, userData: typeUserData;
-
+let grantAccess: typeGrantAccess;
 try {
-  grantAccess = grantDiscordAccessToken(Astro.url);
+  grantAccess = await grantDiscordAccessToken(Astro.url);
 } catch (e) {
   return {
     statusCode: 401,
@@ -16,8 +15,9 @@ try {
   };
 }
 
+let userData: typeUserData;
 try {
-  userData = getDiscordUserData(grantAccess.access_token || "");
+  userData = await getDiscordUserData(grantAccess.access_token || "");
 } catch (e) {
   return {
     statusCode: 498,

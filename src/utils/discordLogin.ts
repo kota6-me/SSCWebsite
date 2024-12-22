@@ -18,7 +18,9 @@ interface typeUserData {
   id?: String;
   username?: String;
 }
-const grantDiscordAccessToken = function (url: URL): typeGrantAccess {
+const grantDiscordAccessToken = async function (
+  url: URL
+): Promise<typeGrantAccess> {
   let code = "";
   const params = new URL(url).search;
   let paramsPrefix = new RegExp(/^[?&]$/g);
@@ -28,7 +30,7 @@ const grantDiscordAccessToken = function (url: URL): typeGrantAccess {
       code = paramsArr[i].split("=")[1];
     }
   }
-  fetch("https://discordapp.com/api/oauth2/token", {
+  await fetch("https://discordapp.com/api/oauth2/token", {
     method: "POST",
     body: new URLSearchParams({
       client_id: "1319225068592824411",
@@ -45,8 +47,10 @@ const grantDiscordAccessToken = function (url: URL): typeGrantAccess {
   return grantAccess as typeGrantAccess;
 };
 
-const getDiscordUserData = function (token: String): typeUserData {
-  fetch("https://discordapp.com/api/users/@me", {
+const getDiscordUserData = async function (
+  token: String
+): Promise<typeUserData> {
+  await fetch("https://discordapp.com/api/users/@me", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
