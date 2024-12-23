@@ -13,7 +13,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja" className={urbanist.className}>
-      <body>{children}</body>
+      <body>
+        <div className="w-full lg:w-[1024px] mx-auto">{children}</div>
+      </body>
     </html>
   );
 }
