@@ -8,7 +8,7 @@ import {
 } from "../utils/discordLogin";
 import type { typeGrantAccess, typeUserData } from "../utils/discordLogin";
 
-export function CodeWorker() {
+function CodeWorker() {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
   const [userData, setUserData] = React.useState<typeUserData | null>(null);
