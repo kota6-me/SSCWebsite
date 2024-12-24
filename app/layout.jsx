@@ -1,7 +1,11 @@
-import { Urbanist } from "next/font/google";
+import { Urbanist, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const urbanist = Urbanist({
+  subsets: ["latin"],
+});
+
+const jbm = JetBrains_Mono({
   subsets: ["latin"],
 });
 
@@ -14,7 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${urbanist.className}`}>
-        <div class="w-full lg:w-[1024px] lg:mx-auto font-urb">{children}</div>
+        <div class="w-full lg:w-[1024px] lg:mx-auto">{children}</div>
       </body>
     </html>
   );

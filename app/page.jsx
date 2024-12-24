@@ -14,7 +14,6 @@ export default async function Home() {
           Official Website
         </span>
       </p>
-      <Button />
       <code> let hoge = "fuga"; </code>
       <div>
         NEON:
