@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   grantDiscordAccessToken,
@@ -31,33 +32,37 @@ export default function Redirect() {
     fetchData();
   }, [code]);
 
-  if (!userData) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <ul>
-      <li>Username: {userData.global_name}</li>
-      <li>UserID: {userData.username}</li>
-      <li>SnnowflakeID: {userData.id}</li>
-      <li>
-        Avatar:
-        <img
-          src={
-            "https://cdn.discordapp.com/" + userData.id + "/" + userData.avatar
-          }
-          alt="avatar"
-        />
-      </li>
-      <li>
-        Banner:
-        <img
-          src={
-            "https://cdn.discordapp.com/" + userData.id + "/" + userData.banner
-          }
-          alt="banner"
-        />
-      </li>
-    </ul>
+    <Suspense fallback={<div>Loading...</div>}>
+      <ul>
+        <li>Username: {userData.global_name}</li>
+        <li>UserID: {userData.username}</li>
+        <li>SnnowflakeID: {userData.id}</li>
+        <li>
+          Avatar:
+          <img
+            src={
+              "https://cdn.discordapp.com/" +
+              userData.id +
+              "/" +
+              userData.avatar
+            }
+            alt="avatar"
+          />
+        </li>
+        <li>
+          Banner:
+          <img
+            src={
+              "https://cdn.discordapp.com/" +
+              userData.id +
+              "/" +
+              userData.banner
+            }
+            alt="banner"
+          />
+        </li>
+      </ul>
+    </Suspense>
   );
 }
