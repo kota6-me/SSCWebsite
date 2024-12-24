@@ -2,7 +2,7 @@
 import { neon } from "@neondatabase/serverless";
 const sql = neon(process.env.DATABASE_URL || "");
 const response = await sql`SELECT * FROM testdb ORDER BY id ASC`;
-export default function Home() {
+export default async function Home() {
   return (
     <div>
       <p>
