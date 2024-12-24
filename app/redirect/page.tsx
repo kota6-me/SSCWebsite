@@ -7,7 +7,8 @@ import {
   getDiscordUserData,
 } from "../utils/discordLogin";
 import type { typeGrantAccess, typeUserData } from "../utils/discordLogin";
-export default function Redirect() {
+
+export function CodeWorker() {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
   const [userData, setUserData] = React.useState<typeUserData | null>(null);
@@ -31,38 +32,37 @@ export default function Redirect() {
 
     fetchData();
   }, [code]);
+  return (
+    <ul>
+      <li>Username: {userData.global_name}</li>
+      <li>UserID: {userData.username}</li>
+      <li>SnnowflakeID: {userData.id}</li>
+      <li>
+        Avatar:
+        <img
+          src={
+            "https://cdn.discordapp.com/" + userData.id + "/" + userData.avatar
+          }
+          alt="avatar"
+        />
+      </li>
+      <li>
+        Banner:
+        <img
+          src={
+            "https://cdn.discordapp.com/" + userData.id + "/" + userData.banner
+          }
+          alt="banner"
+        />
+      </li>
+    </ul>
+  );
+}
 
+export default function Redirect() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <ul>
-        <li>Username: {userData.global_name}</li>
-        <li>UserID: {userData.username}</li>
-        <li>SnnowflakeID: {userData.id}</li>
-        <li>
-          Avatar:
-          <img
-            src={
-              "https://cdn.discordapp.com/" +
-              userData.id +
-              "/" +
-              userData.avatar
-            }
-            alt="avatar"
-          />
-        </li>
-        <li>
-          Banner:
-          <img
-            src={
-              "https://cdn.discordapp.com/" +
-              userData.id +
-              "/" +
-              userData.banner
-            }
-            alt="banner"
-          />
-        </li>
-      </ul>
+      <CodeWorker />
     </Suspense>
   );
 }
