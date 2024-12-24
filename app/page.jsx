@@ -1,4 +1,5 @@
 "use server";
+import Link from "next/link";
 import { neon } from "@neondatabase/serverless";
 const sql = neon(process.env.DATABASE_URL || "");
 const response = await sql`SELECT * FROM testdb ORDER BY id ASC`;
