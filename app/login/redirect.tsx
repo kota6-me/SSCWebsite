@@ -4,8 +4,8 @@ import { useSearchParams } from "next/navigation";
 import {
   grantDiscordAccessToken,
   getDiscordUserData,
-} from "@/utils/discordLogin";
-import type { typeGrantAccess, typeUserData } from "@/utils/discordLogin";
+} from "../utils/discordLogin";
+import type { typeGrantAccess, typeUserData } from "../utils/discordLogin";
 export default function Redirect() {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
