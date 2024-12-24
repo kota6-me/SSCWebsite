@@ -1,3 +1,7 @@
+"use server";
+import { neon } from "@neondatabase/serverless";
+const sql = neon(process.env.DATABASE_URL || "");
+const response = await sql`SELECT * FROM testdb ORDER BY id ASC`;
 export default function Home() {
   return (
     <div>
@@ -10,7 +14,7 @@ export default function Home() {
           Official Website
         </span>
       </p>
-      <Button client:load />
+      <Button />
       <code> let hoge = "fuga"; </code>
       <div>
         NEON:
