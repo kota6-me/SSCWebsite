@@ -19,11 +19,11 @@ export default async function Home() {
       <div>
         NEON:
         <br />
-        ID:{response[0].id}
+        ID:{response[1].id}
         <br />
-        ITEM:{response[0].data_name}
+        ITEM:{response[1].data_name}
         <br />
-        PRICE:¥{response[0].price_yen}.
+        PRICE:¥{response[1].price_yen}.
       </div>
       <Link href="./login">Login</Link>
     </div>
