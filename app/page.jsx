@@ -25,7 +25,7 @@ export default function Home() {
         <br />
         PRICE:¥{response[0].price_yen}.
       </div>
-      <a href="/login/">Login</a>
+      <Link href="./login">Login</Link>
     </div>
   );
 }
