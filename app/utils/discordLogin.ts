@@ -1,31 +1,44 @@
-let grantAccess: typeGrantAccess = {};
+let grantAccess: typeGrantAccess = {
+  access_token: null,
+  token_type: null,
+  expires_in: null,
+  refresh_token: null,
+  scope: null,
+  isSuccessfull: false,
+  errorDescription: null,
+};
 interface typeGrantAccess {
-  access_token?: String;
-  token_type?: String;
-  expires_in?: Number;
-  refresh_token?: String;
-  scope?: String;
+  access_token: String | null;
+  token_type: String | null;
+  expires_in: Number | null;
+  refresh_token: String | null;
+  scope: String | null;
+  isSuccessfull: Boolean;
+  errorDescription: String | null;
 }
-let userData: typeUserData = {};
+let userData: typeUserData = {
+  avatar: null,
+  banner: null,
+  email: null,
+  global_name: null,
+  id: null,
+  username: null,
+  isSuccessfull: false,
+  errorDescription: null,
+};
 interface typeUserData {
-  avatar?: String;
-  banner?: String;
-  email?: String;
-  global_name?: String;
-  id?: String;
-  username?: String;
+  avatar: String | null;
+  banner: String | null;
+  email: String | null;
+  global_name: String | null;
+  id: String;
+  username: String;
+  isSuccessfull: Boolean;
+  errorDescription: String | null;
 }
 const grantDiscordAccessToken = async function (
   code: String
 ): Promise<typeGrantAccess> {
-  /*const params = new URL(url).search;
-  let paramsPrefix = new RegExp(/^[?&]$/g);
-  const paramsArr = params.split(paramsPrefix);
-  for (let i = 0; i < paramsArr.length; i++) {
-    if (paramsArr[i].includes("code")) {
-      code = paramsArr[i].split("=")[1];
-    }
-  }*/
   await fetch("https://discordapp.com/api/oauth2/token", {
     method: "POST",
     body: new URLSearchParams({
@@ -35,11 +48,34 @@ const grantDiscordAccessToken = async function (
       code: `${code}`,
       redirect_uri: "https://seijoscience.com/redirect",
     }),
-  }).then((response) => {
-    response.json().then((response) => {
-      grantAccess = response;
-    });
-  });
+  }).then(
+    (response) => {
+      //第一引数:成功時の処理
+      response.json().then((response) => {
+        grantAccess = {
+          access_token: response.access_token,
+          token_type: response.token_type,
+          expires_in: response.expires_in,
+          refresh_token: response.refresh_token,
+          scope: response.scope,
+          isSuccessfull: true,
+          errorDescription: null,
+        };
+      });
+    },
+    (error) => {
+      //第二引数:失敗時の処理
+      grantAccess = {
+        access_token: null,
+        token_type: null,
+        expires_in: null,
+        refresh_token: null,
+        scope: null,
+        isSuccessfull: false,
+        errorDescription: error,
+      };
+    }
+  );
   return grantAccess as typeGrantAccess;
 };
 
@@ -50,11 +86,49 @@ const getDiscordUserData = async function (
     headers: {
       Authorization: `Bearer ${token}`,
     },
-  }).then((response) => {
-    response.json().then((response) => {
-      userData = response;
-    });
-  });
+  }).then(
+    (response) => {
+      //第一引数:成功時の処理
+      response.json().then((response) => {
+        if (response.premium_type !== 2) {
+          userData = {
+            avatar: response.avatar,
+            banner: null,
+            email: response.email,
+            global_name: response.global_name,
+            id: response.id,
+            username: response.username,
+            isSuccessfull: true,
+            errorDescription: null,
+          };
+        } else if (response.premium_type === 2) {
+          userData = {
+            avatar: response.avatar,
+            banner: response.banner,
+            email: response.email,
+            global_name: response.global_name,
+            id: response.id,
+            username: response.username,
+            isSuccessfull: true,
+            errorDescription: null,
+          };
+        }
+      });
+    },
+    (error) => {
+      //第二引数:失敗時の処理
+      userData = {
+        avatar: null,
+        banner: null,
+        email: null,
+        global_name: null,
+        id: null,
+        username: null,
+        isSuccessfull: false,
+        errorDescription: error,
+      };
+    }
+  );
   return userData as typeUserData;
 };
 
