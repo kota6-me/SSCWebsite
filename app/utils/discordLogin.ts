@@ -39,11 +39,32 @@ interface typeUserData {
 const grantDiscordAccessToken = async function (
   code: String
 ): Promise<typeGrantAccess> {
+  if (!process.env.DISCORD_CLIENT_SECRET) {
+    return (grantAccess = {
+      access_token: null,
+      token_type: null,
+      expires_in: null,
+      refresh_token: null,
+      scope: null,
+      isSuccessfull: false,
+      errorDescription: "DISCORD_CLIENT_SECRETが設定されていません",
+    });
+  } else if (code === "") {
+    return (grantAccess = {
+      access_token: null,
+      token_type: null,
+      expires_in: null,
+      refresh_token: null,
+      scope: null,
+      isSuccessfull: false,
+      errorDescription: "codeが取得できませんでした",
+    });
+  }
   await fetch("https://discordapp.com/api/oauth2/token", {
     method: "POST",
     body: new URLSearchParams({
       client_id: "1319225068592824411",
-      client_secret: process.env.DISCORD_CLIENT_SECRET || "",
+      client_secret: process.env.DISCORD_CLIENT_SECRET,
       grant_type: "authorization_code",
       code: `${code}`,
       redirect_uri: "https://seijoscience.com/redirect",

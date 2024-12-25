@@ -1,116 +1,84 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   grantDiscordAccessToken,
   getDiscordUserData,
-} from "../utils/discordLogin";
-import type { typeGrantAccess, typeUserData } from "../utils/discordLogin";
+} from "../utils/discordLogin.ts";
+import type { typeGrantAccess, typeUserData } from "../utils/discordLogin.ts";
+let grantAccess: typeGrantAccess = {
+  access_token: null,
+  token_type: null,
+  expires_in: null,
+  refresh_token: null,
+  scope: null,
+  isSuccessfull: false,
+  errorDescription: null,
+};
+let userData: typeUserData = {
+  avatar: null,
+  banner: null,
+  email: null,
+  global_name: null,
+  id: null,
+  username: null,
+  isSuccessfull: false,
+  errorDescription: null,
+};
+const searchParams = useSearchParams();
+const code = searchParams.get("code") || "";
 
-async function CodeWorker() {
-  const searchParams = useSearchParams();
-  const code = searchParams.get("code") || "";
-
-  let grantAccess: typeGrantAccess = {
-    access_token: null,
-    token_type: null,
-    expires_in: null,
-    refresh_token: null,
-    scope: null,
-    isSuccessfull: false,
-    errorDescription: null,
-  };
-  let userData: typeUserData = {
-    avatar: null,
-    banner: null,
-    email: null,
-    global_name: null,
-    id: null,
-    username: null,
-    isSuccessfull: false,
-    errorDescription: null,
-  };
-  grantAccess = await grantDiscordAccessToken(code);
-  if (grantAccess.isSuccessfull) {
-    userData = await getDiscordUserData(grantAccess.access_token);
-    if (userData.isSuccessfull) {
-      if (userData.banner) {
-        //NitroUserのBanner表示パターン
-        return (
-          <ul>
-            <li>Username: {userData.global_name}</li>
-            <li>UserID: {userData.username}</li>
-            <li>SnnowflakeID: {userData.id}</li>
-            <li>
-              Avatar:
-              <img
-                src={
-                  "https://cdn.discordapp.com/" +
-                  userData.id +
-                  "/" +
-                  userData.avatar
-                }
-                alt="avatar"
-              />
-            </li>
-            <li>
-              Banner:
-              <img
-                src={
-                  "https://cdn.discordapp.com/" +
-                  userData.id +
-                  "/" +
-                  userData.banner
-                }
-                alt="banner"
-              />
-            </li>
-          </ul>
-        );
+function CodeWorker() {
+  useEffect(() => {
+    grantDiscordAccessToken(code).then((res) => {
+      grantAccess = res;
+      if (grantAccess.isSuccessfull) {
+        getDiscordUserData(grantAccess.access_token).then((res) => {
+          userData = res;
+          if (userData.isSuccessfull) {
+            console.log("ログイン成功");
+          } else {
+            console.log("ログイン失敗");
+          }
+        });
       } else {
-        return (
-          <ul>
-            <li>Username: {userData.global_name}</li>
-            <li>UserID: {userData.username}</li>
-            <li>SnnowflakeID: {userData.id}</li>
-            <li>
-              Avatar:
-              <img
-                src={
-                  "https://cdn.discordapp.com/" +
-                  userData.id +
-                  "/" +
-                  userData.avatar
-                }
-                alt="avatar"
-              />
-            </li>
-          </ul>
-        );
+        console.log("ログイン失敗");
       }
-    } else {
-      return (
-        <div>
-          <p>ログイン中にエラーが発生しました</p>
-          <p>{userData.errorDescription}</p>
-        </div>
-      );
-    }
-  } else {
-    return (
-      <div>
-        <p>アクセス権限取得中にエラーが発生しました</p>
-        <p>{grantAccess.errorDescription}</p>
-      </div>
-    );
-  }
+    });
+  }, [code]);
+}
+
+function PrintData() {
+  CodeWorker();
+  return (
+    <ul>
+      <li>ユーザー名：{userData.global_name}</li>
+      <li>ユーザーID：{userData.username}</li>
+      <li>SnowflakeID：{userData.id}</li>
+      <li>Email:{userData.email}</li>
+      <li>
+        Avatar:{`https://cdn.discordapp.com/${userData.id}/${userData.avatar}`}
+      </li>
+      <li>
+        Banner:{`https://cdn.discordapp.com/${userData.id}/${userData.banner}`}
+      </li>
+    </ul>
+  );
 }
 
 export default function Redirect() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CodeWorker />
+    <Suspense
+      fallback={
+        <div>
+          Loading...
+          <br />
+          {code}
+        </div>
+      }
+    >
+      <PrintData />
     </Suspense>
   );
 }
