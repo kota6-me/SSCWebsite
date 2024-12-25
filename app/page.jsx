@@ -7,10 +7,10 @@ export default async function Home() {
   return (
     <div>
       <p>
-        <span class="text-black font-urb font-bold text-5xl tracking-[-0.14em]">
+        <span className="text-black font-urb font-bold text-5xl tracking-[-0.14em]">
           S²C
         </span>
-        <span class="text-black font-urb font-bold text-5xl tracking-tight">
+        <span className="text-black font-urb font-bold text-5xl tracking-tight">
           {" "}
           Official Website
         </span>
