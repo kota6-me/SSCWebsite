@@ -5,8 +5,8 @@ import { useSearchParams } from "next/navigation";
 import {
   grantDiscordAccessToken,
   getDiscordUserData,
-} from "../utils/discordLogin.ts";
-import type { typeGrantAccess, typeUserData } from "../utils/discordLogin.ts";
+} from "../utils/discordLogin";
+import type { typeGrantAccess, typeUserData } from "../utils/discordLogin";
 let grantAccess: typeGrantAccess = {
   access_token: null,
   token_type: null,
