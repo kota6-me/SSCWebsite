@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${urbanist.className}`}>
-        <div class="w-full lg:w-[1024px] lg:mx-auto">{children}</div>
+        <div className="w-full lg:w-[1024px] lg:mx-auto">{children}</div>
       </body>
     </html>
   );
