@@ -2,7 +2,8 @@
 import Link from "next/link";
 import { neon } from "@neondatabase/serverless";
 const sql = neon(process.env.DATABASE_URL || "");
-const response = await sql`SELECT * FROM testdb ORDER BY id ASC`;
+const response =
+  await sql`SELECT * FROM dev."user" ORDER BY "user_snowflake" ASC`;
 export default async function Home() {
   return (
     <div>
