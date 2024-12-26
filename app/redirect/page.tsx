@@ -7,7 +7,7 @@ export default function Redirect() {
   return (
     <div>
       <h1>Redirect</h1>
-      <Suspense>
+      <Suspense fallback={<p>Code Now Loading...</p>}>
         <p>{code}</p>
       </Suspense>
     </div>
