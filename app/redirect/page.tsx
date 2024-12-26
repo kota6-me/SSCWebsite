@@ -1,18 +1,21 @@
 "use client";
-import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-function GetCode(): React.ReactElement {
+import { redirect, useSearchParams } from "next/navigation";
+import discordLogin from "../utils/discordLogin";
+
+export default function Redirect() {
   let searchParams = useSearchParams();
   let code = searchParams.get("code");
-  return <p>Code: {code}</p>;
-}
-export default function Redirect() {
+  discordLogin(code).then((userData) => {
+    if (userData.isSuccessfull) {
+      redirect("/dashboard");
+    } else {
+      console.error(userData.errorDescription);
+      redirect("/error");
+    }
+  });
   return (
     <div>
-      <h1>Redirect</h1>
-      <Suspense fallback={<p>Code Now Loading...</p>}>
-        <GetCode />
-      </Suspense>
+      <h1>Now Redirecting...</h1>
     </div>
   );
 }

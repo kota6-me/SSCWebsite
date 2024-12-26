@@ -153,5 +153,16 @@ const getDiscordUserData = async function (
   return userData as typeUserData;
 };
 
-export { grantDiscordAccessToken, getDiscordUserData };
+export default async function discordLogin(code: String) {
+  let grantAccess = await grantDiscordAccessToken(code);
+  if (grantAccess.isSuccessfull) {
+    let userData = await getDiscordUserData(grantAccess.access_token);
+    return userData;
+  } else {
+    return grantAccess;
+  }
+}
+
+/*export { grantDiscordAccessToken, getDiscordUserData };
 export type { typeGrantAccess, typeUserData };
+*/
